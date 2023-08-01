@@ -1,4 +1,4 @@
-module github.com/ayr2017/hw01_hello_otus
+module github.com/Ayr2017/golang-professional/hw01_hello_otus
 
 go 1.20
 
