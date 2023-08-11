@@ -8,6 +8,15 @@ linters-settings:
   funlen:
     lines: 150
     statements: 80
+  golint:
+    min-confidence: 0
+  govet:
+    enable: ["vet"]
+  staticcheck:
+    enable: ["deadcode", "gosimple"]
+  depguard:
+    packages-exclude:
+      - "github.com/stretchr/testify/require"
 
 issues:
   exclude-rules:
@@ -23,7 +32,6 @@ linters:
   enable:
     - asciicheck
     - bodyclose
-    - depguard
     - dogsled
     - dupl
     - durationcheck
