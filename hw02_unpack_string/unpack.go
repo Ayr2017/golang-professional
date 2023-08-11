@@ -2,7 +2,6 @@ package hw02unpackstring
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -13,12 +12,8 @@ var ErrInvalidString = errors.New("invalid string")
 func Unpack(inputString string) (string, error) {
 	var sb strings.Builder
 	byteSlice := []rune(inputString)
-	matched, err := regexp.Match(`\d{2,}`, []byte(inputString))
-	if err != nil {
-		return "", err
-	}
 
-	if matched {
+	if matched, err := regexp.Match(`\d{2,}`, []byte(inputString)); matched || err != nil {
 		return "", ErrInvalidString
 	}
 
@@ -36,10 +31,6 @@ func Unpack(inputString string) (string, error) {
 			sb.WriteString(res)
 		} else if !isDigit(byteSlice[i]) {
 			sb.WriteString(string(byteSlice[i]))
-		}
-
-		if err != nil {
-			fmt.Println(err)
 		}
 
 		if i < len(byteSlice)-2 {
