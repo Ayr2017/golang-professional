@@ -17,7 +17,7 @@ func Unpack(inputString string) (string, error) {
 		return "", ErrInvalidString
 	}
 
-	if len(byteSlice) >0  && isDigit(byteSlice[0]) {
+	if len(byteSlice) > 0 && isDigit(byteSlice[0]) {
 		return "", ErrInvalidString
 	}
 
