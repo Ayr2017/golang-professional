@@ -17,11 +17,11 @@ func Unpack(inputString string) (string, error) {
 		return "", ErrInvalidString
 	}
 
-	for i, j := 0, 1; i < len(byteSlice); i++ {
-		if i == 0 && isDigit(byteSlice[i]) {
-			return "", ErrInvalidString
-		}
+	if len(byteSlice) >0  && isDigit(byteSlice[0]) {
+		return "", ErrInvalidString
+	}
 
+	for i, j := 0, 1; i < len(byteSlice); i++ {
 		if isDigit(byteSlice[j]) {
 			count, err := strconv.Atoi(string(byteSlice[j]))
 			res := repeatCharacter(byteSlice[i], count)
@@ -54,5 +54,8 @@ func repeatCharacter(character rune, count int) string {
 }
 
 func isDigit(ch rune) bool {
-	return ch >= '0' && ch <= '9'
+	if _, err := strconv.Atoi(string(ch)); err == nil {
+		return true
+	}
+	return false
 }
