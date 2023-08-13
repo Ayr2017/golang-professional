@@ -33,7 +33,7 @@ func Unpack(inputString string) (string, error) {
 			sb.WriteString(string(byteSlice[i]))
 		}
 
-		if i < len(byteSlice)-2 {
+		if j < len(byteSlice)-1 {
 			j++
 		}
 	}
