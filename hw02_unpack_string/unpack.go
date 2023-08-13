@@ -11,29 +11,29 @@ var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(inputString string) (string, error) {
 	var sb strings.Builder
-	byteSlice := []rune(inputString)
+	runesSlice := []rune(inputString)
 
 	if matched, err := regexp.Match(`\d{2,}`, []byte(inputString)); matched || err != nil {
 		return "", ErrInvalidString
 	}
 
-	if len(byteSlice) > 0 && isDigit(byteSlice[0]) {
+	if len(runesSlice) > 0 && isDigit(runesSlice[0]) {
 		return "", ErrInvalidString
 	}
 
-	for i, j := 0, 1; i < len(byteSlice); i++ {
-		if isDigit(byteSlice[j]) {
-			count, err := strconv.Atoi(string(byteSlice[j]))
-			res := repeatCharacter(byteSlice[i], count)
+	for i, j := 0, 1; i < len(runesSlice); i++ {
+		if isDigit(runesSlice[j]) {
+			count, err := strconv.Atoi(string(runesSlice[j]))
 			if err != nil {
 				return "", ErrInvalidString
 			}
+			res := repeatCharacter(runesSlice[i], count)
 			sb.WriteString(res)
-		} else if !isDigit(byteSlice[i]) {
-			sb.WriteString(string(byteSlice[i]))
+		} else if !isDigit(runesSlice[i]) {
+			sb.WriteRune(runesSlice[i])
 		}
 
-		if j < len(byteSlice)-1 {
+		if j < len(runesSlice)-1 {
 			j++
 		}
 	}
