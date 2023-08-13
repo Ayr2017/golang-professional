@@ -43,7 +43,7 @@ func Unpack(inputString string) (string, error) {
 
 func repeatCharacter(character rune, count int) string {
 	var repeatedResult string
-	if count > 0 {
+	if count > 0 && !isDigit(character) {
 		str := string(character)
 		repeatedResult = strings.Repeat(str, count)
 	} else {
