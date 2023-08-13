@@ -55,4 +55,4 @@ func repeatCharacter(character rune, count int) string {
 
 func isDigit(char byte) bool {
 	return char >= '0' && char <= '9'
-	}
+}
