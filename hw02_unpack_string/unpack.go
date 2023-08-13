@@ -53,9 +53,6 @@ func repeatCharacter(character rune, count int) string {
 	return repeatedResult
 }
 
-func isDigit(ch rune) bool {
-	if _, err := strconv.Atoi(string(ch)); err == nil {
-		return true
+func isDigit(char byte) bool {
+	return char >= '0' && char <= '9'
 	}
-	return false
-}
