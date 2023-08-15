@@ -28,8 +28,6 @@ func Top10(inputString string) (output []string) {
 		keys = append(keys, key)
 	}
 
-	// sort.Strings(keys)
-
 	sort.SliceStable(keys, func(i, j int) bool {
 		if dict[keys[i]] > dict[keys[j]] {
 			return true
