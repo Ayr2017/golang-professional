@@ -43,6 +43,34 @@ var text = `Как видите, он  спускается  по  лестни�
 	посидеть у огня и послушать какую-нибудь интересную сказку.
 		В этот вечер...`
 
+var text2 = `a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k l
+		a b c d e f g h i j k
+		a b c d e f g h i j
+		a b c d e f g h i 
+		a b c d e f g h 
+		a b c d e f g 
+		a b c d e f 
+		a b c d e
+		a b c d
+		a b c 
+		a b 
+		a `
+
 func TestTop10(t *testing.T) {
 	t.Run("no words in empty string", func(t *testing.T) {
 		require.Len(t, Top10(""), 0)
@@ -78,5 +106,21 @@ func TestTop10(t *testing.T) {
 			}
 			require.Equal(t, expected, Top10(text))
 		}
+	})
+
+	t.Run("positive test 2", func(t *testing.T) {
+		expected := []string{
+			"a", // 27
+			"b", // 27
+			"c", // 25
+			"d", // 24
+			"e", // 23
+			"f", // 22
+			"g", // 21
+			"h", // 20
+			"i", // 19
+			"j", // 18
+		}
+		require.Equal(t, expected, Top10(text2))
 	})
 }
