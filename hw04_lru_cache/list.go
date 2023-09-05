@@ -51,7 +51,6 @@ func (l *list) PushFront(v interface{}) *ListItem {
 		newItem.Next = l.Head
 		l.Head.Prev = newItem
 		l.Head = newItem
-
 	}
 	return newItem
 }

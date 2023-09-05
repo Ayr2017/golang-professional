@@ -25,8 +25,7 @@ func NewCache(capacity int) Cache {
 }
 
 func (c *lruCache) Set(key Key, value interface{}) bool {
-
-	var wasInCache bool = false
+	var wasInCache bool
 	if elem, ok := c.items[key]; ok {
 		wasInCache = true
 		c.queue.MoveToFront(elem)
@@ -51,7 +50,6 @@ func (c *lruCache) Get(key Key) (interface{}, bool) {
 		c.queue.MoveToFront(elem)
 		return elem.Value.(*cacheItem).value, true
 	}
-
 	return nil, false
 }
 
