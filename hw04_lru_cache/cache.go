@@ -6,6 +6,9 @@ type Cache interface {
 	Set(key Key, value interface{}) bool
 	Get(key Key) (interface{}, bool)
 	Clear()
+	Head() *ListItem
+	Tail() *ListItem
+	Len() int
 }
 
 type lruCache struct {
@@ -22,6 +25,18 @@ func NewCache(capacity int) Cache {
 	}
 }
 
+func (c *lruCache) Head() *ListItem {
+	return c.queue.Front()
+}
+
+func (c *lruCache) Tail() *ListItem {
+	return c.queue.Back()
+}
+
+func (c *lruCache) Len() int {
+	return c.queue.Len()
+}
+
 func (c *lruCache) Set(key Key, value interface{}) bool {
 	var wasInCache bool
 	if elem, ok := c.items[key]; ok {
@@ -29,7 +44,7 @@ func (c *lruCache) Set(key Key, value interface{}) bool {
 		c.queue.MoveToFront(elem)
 		elem.Value.(*cacheItem).value = value
 	} else {
-		if c.queue.Len() > c.capacity {
+		if c.queue.Len() >= c.capacity {
 			lastElem := c.queue.Back()
 			c.queue.Remove(lastElem)
 			delete(c.items, lastElem.Value.(*cacheItem).key)
