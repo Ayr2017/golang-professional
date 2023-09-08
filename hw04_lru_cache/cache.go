@@ -1,7 +1,5 @@
 package hw04lrucache
 
-import "fmt"
-
 type Key string
 
 type Cache interface {
@@ -20,7 +18,7 @@ func NewCache(capacity int) Cache {
 	return &lruCache{
 		capacity: capacity,
 		queue:    NewList(),
-		items:    make(map[Key]*ListItem),
+		items:    make(map[Key]*ListItem, capacity),
 	}
 }
 
@@ -31,15 +29,14 @@ func (c *lruCache) Set(key Key, value interface{}) bool {
 		c.queue.MoveToFront(elem)
 		elem.Value.(*cacheItem).value = value
 	} else {
-		elem = c.queue.PushFront(&cacheItem{key, value})
-		c.items[key] = elem
-
 		if c.queue.Len() > c.capacity {
-			fmt.Println(c.queue.Len())
 			lastElem := c.queue.Back()
 			c.queue.Remove(lastElem)
 			delete(c.items, lastElem.Value.(*cacheItem).key)
 		}
+
+		elem = c.queue.PushFront(&cacheItem{key, value})
+		c.items[key] = elem
 	}
 
 	return wasInCache
@@ -55,7 +52,7 @@ func (c *lruCache) Get(key Key) (interface{}, bool) {
 
 func (c *lruCache) Clear() {
 	c.queue = NewList()
-	c.items = make(map[Key]*ListItem)
+	c.items = make(map[Key]*ListItem, c.capacity)
 }
 
 type cacheItem struct {
