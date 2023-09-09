@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"sync"
 	"testing"
-	//  "fmt"
 
 	"github.com/stretchr/testify/require"
 )
@@ -83,7 +82,6 @@ func TestCache(t *testing.T) {
 		// Выталкивается элемент который давно не использовался
 		_, ok = c.Get("c")
 		require.False(t, ok)
-
 	})
 }
 
