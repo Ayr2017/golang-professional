@@ -53,25 +53,37 @@ func TestCache(t *testing.T) {
 	t.Run("purge logic", func(t *testing.T) {
 		c := NewCache(3)
 
-		c.Set("a",1)
+		c.Set("a", 1)
 		_, ok := c.Get("a")
 		require.True(t, ok)
 
-		c.Set("b",1)
+		c.Set("b", 1)
 		_, ok = c.Get("b")
 		require.True(t, ok)
 
-		c.Set("c",1)
+		c.Set("c", 1)
 		_, ok = c.Get("c")
 		require.True(t, ok)
 
-		c.Set("d",1)
+		c.Set("d", 1)
 		_, ok = c.Get("d")
 		require.True(t, ok)
-		
+
+		// Выталкивается элемент который пришёл первый (и давно не использовался)
 		_, ok = c.Get("a")
 		require.False(t, ok)
-		
+
+		_, ok = c.Get("b")
+		require.True(t, ok)
+
+		c.Set("e", 1)
+		_, ok = c.Get("b")
+		require.True(t, ok)
+
+		// Выталкивается элемент который давно не использовался
+		_, ok = c.Get("c")
+		require.False(t, ok)
+
 	})
 }
 
