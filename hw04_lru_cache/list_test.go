@@ -52,15 +52,15 @@ func TestList(t *testing.T) {
 	t.Run("list length", func(t *testing.T) {
 		l := NewList()
 
-		for i := 0; i <= 10; i++ {
+		for i := 0; i < 10; i++ {
 			l.PushFront(i)
 			require.Equal(t, l.Len(), i+1)
 		}
 
-		for i := 10; i >= 0; i-- {
+		for i := 10; i > 0; i-- {
 			f := l.Front()
 			l.Remove(f)
-			require.Equal(t, l.Len(), i)
+			require.Equal(t, l.Len(), i-1)
 		}
 	})
 }
