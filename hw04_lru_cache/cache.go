@@ -6,9 +6,6 @@ type Cache interface {
 	Set(key Key, value interface{}) bool
 	Get(key Key) (interface{}, bool)
 	Clear()
-	Head() *ListItem
-	Tail() *ListItem
-	Len() int
 }
 
 type lruCache struct {
@@ -23,18 +20,6 @@ func NewCache(capacity int) Cache {
 		queue:    NewList(),
 		items:    make(map[Key]*ListItem, capacity),
 	}
-}
-
-func (c *lruCache) Head() *ListItem {
-	return c.queue.Front()
-}
-
-func (c *lruCache) Tail() *ListItem {
-	return c.queue.Back()
-}
-
-func (c *lruCache) Len() int {
-	return c.queue.Len()
 }
 
 func (c *lruCache) Set(key Key, value interface{}) bool {

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"sync"
 	"testing"
-	// "fmt"
+	//  "fmt"
 
 	"github.com/stretchr/testify/require"
 )
@@ -51,18 +51,27 @@ func TestCache(t *testing.T) {
 	})
 
 	t.Run("purge logic", func(t *testing.T) {
-		capacity := 5
-		c := NewCache(capacity)
-		for i := 0; i < 10; i++ {
-			tl := c.Tail()
-			k := Key(strconv.Itoa(i))
-			v := i + i
-			l := c.Len()
-			c.Set(k, v)
-			if capacity == l {
-				require.NotEqual(t, tl, c.Tail())
-			}
-		}
+		c := NewCache(3)
+
+		c.Set("a",1)
+		_, ok := c.Get("a")
+		require.True(t, ok)
+
+		c.Set("b",1)
+		_, ok = c.Get("b")
+		require.True(t, ok)
+
+		c.Set("c",1)
+		_, ok = c.Get("c")
+		require.True(t, ok)
+
+		c.Set("d",1)
+		_, ok = c.Get("d")
+		require.True(t, ok)
+		
+		_, ok = c.Get("a")
+		require.False(t, ok)
+		
 	})
 }
 
