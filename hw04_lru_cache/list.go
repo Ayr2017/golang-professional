@@ -82,7 +82,7 @@ func (l *list) Remove(i *ListItem) {
 			i.Next.Prev = i.Prev
 		} else {
 			i.Next.Prev = nil
-		}	
+		}
 	}
 
 	l.Length--
